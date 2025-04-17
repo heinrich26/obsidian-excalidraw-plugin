@@ -6,7 +6,7 @@ import ExcalidrawPlugin from "src/core/main";
 import { DEBUGGING, debug } from "src/utils/debugHelper";
 import { ExcalidrawAutomate } from "src/shared/ExcalidrawAutomate";
 import { DEVICE, FRONTMATTER_KEYS, ICON_NAME, VIEW_TYPE_EXCALIDRAW } from "src/constants/constants";
-import ExcalidrawView from "src/view/ExcalidrawView";
+import { ExcalidrawView, HIDE } from "src/view/ExcalidrawView";
 import { t } from "src/lang/helpers";
 
 /**
@@ -282,6 +282,14 @@ export class EventManager {
     }
     if (newActiveviewEV) {
       this.plugin.registerHotkeyOverrides();
+    }
+
+    // Hide the statusbar while focus is in ExcalidrawView, because the word count is useless there.
+    // TODO: only hide word count
+    if (newActiveviewEV && !previouslyActiveEV) {
+      document.querySelectorAll("div.status-bar").forEach((e => e.addClass(HIDE)));
+    } else if (!newActiveviewEV && previouslyActiveEV) { // restore the statusbar
+      document.querySelectorAll(`div.status-bar.${HIDE}`).forEach((e => e.removeClass(HIDE)));
     }
   }
 
