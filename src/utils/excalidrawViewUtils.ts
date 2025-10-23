@@ -310,6 +310,7 @@ export function renderContextMenuAction(
   action: Function,
   onClose: (callback?: () => void) => void,
 ) {
+  // TODO: use native context-menu
   return React.createElement (
     "li",          
     {

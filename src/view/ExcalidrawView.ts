@@ -4817,6 +4817,7 @@ export default class ExcalidrawView extends TextFileView implements HoverParent{
     const selectedElementIds = Object.keys(api.getAppState().selectedElementIds);
     const areElementsSelected = selectedElementIds.length > 0;
 
+    // TODO: use native context-menu
     if(this.isLinkSelected()) {
       contextMenuActions.push([
         renderContextMenuAction(
@@ -4905,6 +4906,7 @@ export default class ExcalidrawView extends TextFileView implements HoverParent{
 
       const img = this.getSingleSelectedImage();
       if(img &&  img.embeddedFile?.isHyperLink) {
+        // TODO: use native context-menu
         contextMenuActions.push([
           renderContextMenuAction(
             React,
@@ -5070,6 +5072,13 @@ export default class ExcalidrawView extends TextFileView implements HoverParent{
     }
 
     if(contextMenuActions.length === 0) return;
+    // TODO: use native context-menu
+    // hier einf Obsidian Menu öffnen
+    const menu = new Menu();
+
+    menu.showAtPosition();
+    return;
+    // old
     return React.createElement (
       "div",
       {},
